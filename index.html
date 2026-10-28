@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sales Insight Assistant</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="page-shell">
+    <header class="topbar">
+      <div class="brand-mark">SI</div>
+      <div>
+        <h1>Sales Insight Assistant</h1>
+        <p>Ask questions. Understand your sales.</p>
+      </div>
+      <span class="status-pill"><span class="status-dot"></span> Dataset connected</span>
+    </header>
+
+    <main>
+      <section class="intro">
+        <div>
+          <p class="eyebrow">BUSINESS INTELLIGENCE · 2026</p>
+          <h2>Your sales, made easier to understand.</h2>
+          <p class="intro-copy">Explore revenue, product performance and regional trends using your sales transaction data.</p>
+        </div>
+      </section>
+
+      <section class="section-heading">
+        <div><h3>Sales overview</h3><p>Summary of valid completed transactions</p></div>
+        <span id="quality-note" class="subtle-label">Loading dataset…</span>
+      </section>
+
+      <section class="kpi-grid">
+        <article class="kpi-card">
+          <div class="kpi-top"><span>Total revenue</span><span class="kpi-icon">₹</span></div>
+          <strong id="total-revenue">—</strong><small>After discounts</small>
+        </article>
+        <article class="kpi-card">
+          <div class="kpi-top"><span>Transactions</span><span class="kpi-icon">#</span></div>
+          <strong id="transaction-count">—</strong><small>Valid completed sales</small>
+        </article>
+        <article class="kpi-card">
+          <div class="kpi-top"><span>Top product</span><span class="kpi-icon">↗</span></div>
+          <strong class="text-value" id="top-product">—</strong><small id="top-product-revenue">Highest revenue</small>
+        </article>
+        <article class="kpi-card">
+          <div class="kpi-top"><span>Top region</span><span class="kpi-icon">⌖</span></div>
+          <strong class="text-value" id="top-region">—</strong><small id="top-region-revenue">Highest revenue</small>
+        </article>
+      </section>
+
+      <section class="content-grid">
+        <article class="panel ask-panel">
+          <div class="panel-heading"><div><h3>Ask your sales data</h3><p>Type a question in everyday English.</p></div><span class="sparkle">✳</span></div>
+          <form id="question-form">
+            <label for="question">Your question</label>
+            <textarea id="question" rows="3" maxlength="300" placeholder="e.g. Which product generated the highest revenue?"></textarea>
+            <button type="submit" id="ask-button">Ask question <span>→</span></button>
+          </form>
+          <div class="examples">
+            <p>TRY AN EXAMPLE</p>
+            <button class="example-chip" data-question="What is the total revenue?">Total revenue</button>
+            <button class="example-chip" data-question="Which product generated the highest revenue?">Top product</button>
+            <button class="example-chip" data-question="Show monthly revenue trend">Monthly trend</button>
+            <button class="example-chip" data-question="Which region generated the highest revenue?">Top region</button>
+            <button class="example-chip" data-question="Compare revenue between January and February">Compare months</button>
+          </div>
+          <div id="answer-box" class="answer-box hidden" aria-live="polite">
+            <div class="answer-label">ANSWER</div>
+            <p id="answer-text"></p>
+            <div id="result-table-wrap"></div>
+            <div class="result-chart-wrap"><canvas id="result-chart"></canvas></div>
+          </div>
+          <div id="error-message" class="error-message hidden" role="alert"></div>
+        </article>
+
+        <article class="panel chart-panel">
+          <div class="panel-heading"><div><h3>Monthly revenue</h3><p>Revenue by order month</p></div><span class="chart-label">TREND</span></div>
+          <div class="chart-wrap"><canvas id="monthly-chart"></canvas></div>
+          <div class="chart-foot"><span class="legend-dot"></span><span>Net revenue (₹)</span></div>
+        </article>
+      </section>
+
+      <section class="panel product-panel">
+        <div class="panel-heading"><div><h3>Product performance</h3><p>Products ranked by revenue</p></div><span class="chart-label">TOP PRODUCTS</span></div>
+        <div class="chart-wrap product-chart-wrap"><canvas id="product-chart"></canvas></div>
+      </section>
+
+      <footer>
+        <span>Sales Insight Assistant</span>
+        <span>Built with Python · Flask · SQLite · Chart.js</span>
+      </footer>
+    </main>
+  </div>
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
